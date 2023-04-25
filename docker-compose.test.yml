@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   app:
-    image: ${{ vars.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
     build: .
   sut:
     image: alpine:3.13

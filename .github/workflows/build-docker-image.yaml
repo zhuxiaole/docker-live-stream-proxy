@@ -4,6 +4,7 @@ on:
   repository_dispatch:
 
 env:
+  IMAGE_NAME: ${{ vars.IMAGE_NAME }}
   IMAGE_TAG: ${{ github.sha }}
   DOCKER_BUILDKIT: 1
 
@@ -52,7 +53,7 @@ jobs:
         if: steps.prepare_softwares.outputs.status == 'success' && !cancelled()
         id: build_test
         run: |-
-          docker build -t ${{ vars.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Smoke test image
@@ -75,9 +76,9 @@ jobs:
         if: steps.test.outputs.status != 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ vars.IMAGE_NAME }}:latest \
+            --cache-from=$IMAGE_NAME:latest \
             --push \
-            -t ${{ vars.IMAGE_NAME }}:test \
+            -t $IMAGE_NAME:test \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT
@@ -87,9 +88,9 @@ jobs:
         if: steps.test.outputs.status == 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ vars.IMAGE_NAME }}:latest \
+            --cache-from=$IMAGE_NAME:latest \
             --push \
-            -t ${{ vars.IMAGE_NAME }}:latest \
+            -t $IMAGE_NAME:latest \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT
@@ -99,9 +100,9 @@ jobs:
         if: steps.tag.outputs.status == 'success' && steps.latest.outputs.status == 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ vars.IMAGE_NAME }}:latest \
+            --cache-from=$IMAGE_NAME:latest \
             --push \
-            -t ${{ vars.IMAGE_NAME }}:${{ steps.tag.outputs.release_tag }} \
+            -t $IMAGE_NAME:${{ steps.tag.outputs.release_tag }} \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT
