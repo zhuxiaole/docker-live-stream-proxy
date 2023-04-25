@@ -44,11 +44,11 @@ jobs:
         run: |
           sudo apt install -y git tar curl
           curl -sSL https://github.com/Borber/seam/releases/download/${{ matrix.seam_version }}/seam-${{ matrix.seam_version }}.x86_64-unknown-linux-musl.tar.xz -o seam.tar.xz
-          tar -xvf seam.tar.xz -C seam && rm -rf seam.tar.xz
+          mkdir -p seam && tar -xvf seam.tar.xz -C seam && rm -rf seam.tar.xz
           git clone https://github.com/TrafeX/docker-php-nginx.git docker-php-nginx
           echo "status=success" >> $GITHUB_OUTPUT
 
-      - name: Build test image
+      - name: Build image for test
         if: steps.prepare_softwares.outputs.status == 'success' && !cancelled()
         id: build_test
         run: |-
