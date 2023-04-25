@@ -13,7 +13,7 @@ RUN apk add --no-cache \
   supervisor
 
 # add Seam
-COPY --chmod=755 seam /usr/local/seam
+COPY --chmod=755 seam/ /usr/local/seam
 
 # Configure nginx - http
 COPY docker-php-nginx/config/nginx.conf /etc/nginx/nginx.conf

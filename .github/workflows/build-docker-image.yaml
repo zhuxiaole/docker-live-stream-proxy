@@ -40,17 +40,23 @@ jobs:
           echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Prepare softwares
+        id: prepare_softwares
         run: |
           sudo apt install -y git tar curl
           curl -sSL https://github.com/Borber/seam/releases/download/${{ matrix.seam_version }}/seam-${{ matrix.seam_version }}.x86_64-unknown-linux-musl.tar.xz -o seam.tar.xz
           tar -xvf seam.tar.xz -C seam && rm -rf seam.tar.xz
           git clone https://github.com/TrafeX/docker-php-nginx.git docker-php-nginx
+          echo "status=success" >> $GITHUB_OUTPUT
 
-      - name: Build image
+      - name: Build test image
+        if: steps.prepare_softwares.outputs.status == 'success' && !cancelled()
+        id: build_test
         run: |-
           docker build -t ${{ vars.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          echo "status=success" >> $GITHUB_OUTPUT
 
       - name: Smoke test image
+        if: steps.build_test.outputs.status == 'success' && !cancelled()
         id: test
         run: |-
           docker-compose -f docker-compose.test.yml up -d app
