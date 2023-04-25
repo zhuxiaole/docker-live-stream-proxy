@@ -48,7 +48,7 @@ jobs:
 
       - name: Build image
         run: |-
-          docker build -t ${{ var.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          docker build -t ${{ variables..IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
 
       - name: Smoke test image
         id: test
@@ -69,9 +69,9 @@ jobs:
         if: steps.test.outputs.status != 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ var.IMAGE_NAME }}:latest \
+            --cache-from=${{ variables..IMAGE_NAME }}:latest \
             --push \
-            -t ${{ var.IMAGE_NAME }}:test \
+            -t ${{ variables..IMAGE_NAME }}:test \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT
@@ -81,9 +81,9 @@ jobs:
         if: steps.test.outputs.status == 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ var.IMAGE_NAME }}:latest \
+            --cache-from=${{ variables..IMAGE_NAME }}:latest \
             --push \
-            -t ${{ var.IMAGE_NAME }}:latest \
+            -t ${{ variables..IMAGE_NAME }}:latest \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT
@@ -93,9 +93,9 @@ jobs:
         if: steps.tag.outputs.status == 'success' && steps.latest.outputs.status == 'success' && !cancelled()
         run: |-
           docker buildx build \
-            --cache-from=${{ var.IMAGE_NAME }}:latest \
+            --cache-from=${{ variables..IMAGE_NAME }}:latest \
             --push \
-            -t ${{ var.IMAGE_NAME }}:${{ steps.tag.outputs.release_tag }} \
+            -t ${{ variables..IMAGE_NAME }}:${{ steps.tag.outputs.release_tag }} \
             --platform linux/amd64 \
             .
           echo "status=success" >> $GITHUB_OUTPUT

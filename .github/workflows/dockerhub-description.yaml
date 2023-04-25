@@ -17,5 +17,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ var.IMAGE_NAME }}
+          repository: ${{ variables..IMAGE_NAME }}
           short-description: ${{ github.event.repository.description }}
