@@ -37,8 +37,9 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/zhuxiaole/docker-live-stream-proxy/releases/${proxy_release_id}) \
           | jq -r '.body')"
-        echo "proxy_release_body: $proxy_release_body"
+        
         proxy_seam_version=${proxy_release_body#*: }
+        echo "proxy_seam_version:$proxy_seam_version"
 
         if [ $seam_version == $proxy_seam_version ]
         then
