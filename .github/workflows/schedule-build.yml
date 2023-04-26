@@ -39,6 +39,7 @@ jobs:
           | jq -r '.body')"
         
         proxy_seam_version=${proxy_release_body#*: }
+        echo "seam_version:$seam_version"
         echo "proxy_seam_version:$proxy_seam_version"
 
         if [ $seam_version == $proxy_seam_version ]
