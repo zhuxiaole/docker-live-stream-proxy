@@ -42,7 +42,7 @@ jobs:
         echo "seam_version:$seam_version"
         echo "proxy_seam_version:$proxy_seam_version"
 
-        if [[ $seam_version == $proxy_seam_version ]]
+        if [[ $seam_version = $proxy_seam_version ]]
         then
           update='false'
         else
