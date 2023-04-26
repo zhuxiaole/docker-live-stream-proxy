@@ -38,7 +38,8 @@ jobs:
           https://api.github.com/repos/zhuxiaole/docker-live-stream-proxy/releases/${proxy_release_id}) \
           | jq -r '.body')"
         echo "proxy_release_body: $proxy_release_body"
-        proxy_seam_version=(${proxy_release_body//:/ })[1]
+        proxy_seam_version_array=(${proxy_release_body//:/ })
+        proxy_seam_version = $proxy_seam_version_array[1]
 
         if [ $seam_version == $proxy_seam_version ]
         then
