@@ -7,9 +7,9 @@
 
         $result = shell_exec('/usr/local/seam/seam ' . $platform . ' ' . $id);
 
-        if ($platform == "douyin") {
-            $result = preg_replace('/\{(.*)\}/', '', $result, 1);
-        }
+        // if ($platform == "douyin") {
+        //     $result = preg_replace('/\{(.*)\}/', '', $result, 1);
+        // }
 
         $data = json_decode($result);
 
