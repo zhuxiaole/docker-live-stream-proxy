@@ -17,13 +17,14 @@
 
         if ($platform == "yqs") {
             $playURL = str_replace('"', '', $playURL);
-        } else if ($platform == "douyu") {
-            $reg = '/(https?):\/\/([^\/]+)/i';
-            preg_match($reg, $playURL, $res);
-            $patterns[0] = '/'.$res[2].'/';
-            $replacements[0] = "hdltctwk.douyucdn2.cn";
-            $playURL = preg_replace($patterns, $replacements, $playURL);
         }
+        // else if ($platform == "douyu") {
+        //     $reg = '/(https?):\/\/([^\/]+)/i';
+        //     preg_match($reg, $playURL, $res);
+        //     $patterns[0] = '/'.$res[2].'/';
+        //     $replacements[0] = "hdltctwk.douyucdn2.cn";
+        //     $playURL = preg_replace($patterns, $replacements, $playURL);
+        // }
         return $playURL;
     }
 
