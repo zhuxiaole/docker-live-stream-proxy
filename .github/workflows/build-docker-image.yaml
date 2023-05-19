@@ -108,26 +108,6 @@ jobs:
             .
           echo "status=success" >> $GITHUB_OUTPUT
 
-      - name: delete same tag releases
-        uses: dev-drprasad/delete-older-releases@v0.2.1
-        if: steps.tag_build.outputs.status == 'success' && !cancelled()
-        with:
-          keep_latest: 0
-          delete_tags: true
-          delete_tag_pattern: ${{ steps.tag.outputs.release_tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
-      - name: upload to github release
-        uses: softprops/action-gh-release@v1
-        if: steps.tag_build.outputs.status == 'success' && !cancelled()
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          name: ${{ steps.tag.outputs.release_name }}
-          tag_name: ${{ steps.tag.outputs.release_tag }}
-          body_path: release.txt
-
       - name: delete old workflows
         uses: Mattraks/delete-workflow-runs@v2
         with:
