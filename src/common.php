@@ -13,7 +13,7 @@
 
         $data = json_decode($result);
 
-        $playURL = $data->nodes[0]->url;
+        $playURL = $data->urls[0]->url;
 
         if ($platform == "yqs") {
             $playURL = str_replace('"', '', $playURL);
