@@ -15,9 +15,6 @@
 
         $playURL = $data->urls[0]->url;
 
-        if ($platform == "yqs") {
-            $playURL = str_replace('"', '', $playURL);
-        }
         // else if ($platform == "douyu") {
         //     $reg = '/(https?):\/\/([^\/]+)/i';
         //     preg_match($reg, $playURL, $res);
