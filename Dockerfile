@@ -6,10 +6,10 @@ LABEL Description="Docker live stream proxy."
 # Install packages and remove default server definition
 RUN apk add --no-cache \
   nginx \
-  php81 \
-  php81-curl \
-  php81-json \
-  php81-fpm \
+  php82 \
+  php82-curl \
+  php82-json \
+  php82-fpm \
   supervisor
 
 # add Seam
@@ -21,8 +21,8 @@ COPY docker-php-nginx/config/nginx.conf /etc/nginx/nginx.conf
 COPY docker-php-nginx/config/conf.d /etc/nginx/conf.d/
 
 # Configure PHP-FPM
-COPY docker-php-nginx/config/fpm-pool.conf /etc/php81/php-fpm.d/www.conf
-COPY docker-php-nginx/config/php.ini /etc/php81/conf.d/custom.ini
+COPY docker-php-nginx/config/fpm-pool.conf /etc/php82/php-fpm.d/www.conf
+COPY docker-php-nginx/config/php.ini /etc/php82/conf.d/custom.ini
 
 # Configure supervisord
 COPY docker-php-nginx/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
