@@ -73,6 +73,7 @@ jobs:
           sudo chmod 755 run_tests.sh
           docker-compose -f docker-compose.test.yml up -d app
           sleep 2
+          docker-compose logs -f app
           docker-compose -f docker-compose.test.yml run sut
           echo "status=success" >> $GITHUB_OUTPUT
 
