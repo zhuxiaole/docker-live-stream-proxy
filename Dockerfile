@@ -18,7 +18,7 @@ COPY --chmod=755 seam/ /usr/local/seam
 # Configure nginx - http
 COPY docker-php-nginx/config/nginx.conf /etc/nginx/nginx.conf
 # Configure nginx - default server
-COPY docker-php-nginx/config/conf.d /etc/nginx/conf.d/
+COPY config/default.conf /etc/nginx/conf.d/default.conf
 
 # Configure PHP-FPM
 COPY docker-php-nginx/config/fpm-pool.conf /etc/php82/php-fpm.d/www.conf
