@@ -5,7 +5,7 @@
             $platform = "bili";
         }
 
-        $result = shell_exec('/usr/local/seam/seam ' . $platform . ' ' . $id);
+        $result = shell_exec('/usr/local/seam/seam -a -l ' . $platform . ' -i ' . $id);
 
         // if ($platform == "douyin") {
         //     $result = preg_replace('/\{(.*)\}/', '', $result, 1);
